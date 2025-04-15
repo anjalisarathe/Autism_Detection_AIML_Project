@@ -1,0 +1,109 @@
+/* style.css */
+
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f8f9fa;
+}
+
+/* Custom Navbar Styling */
+.custom-navbar {
+    background-color: #2C3E50 !important;
+    /* Professional dark navy */
+    border-bottom: 2px solid #1A252F;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-navbar .nav-link {
+    color: #ecf0f1 !important;
+}
+
+.custom-navbar .nav-link:hover {
+    color: #bdc3c7 !important;
+}
+
+/* Main Content Spacing */
+.main-content {
+    margin-top: 80px;
+    margin-bottom: 60px;
+}
+
+/* Custom Footer Styling */
+.footer.bg-custom {
+    background-color: #34495E;
+    /* A complementary dark color */
+    color: white;
+}
+
+/* Jumbotron Styling for Home Page */
+.jumbotron {
+    background-image: url('../images/home-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Carousel Caption Styling */
+.carousel-caption h5 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.carousel-caption p {
+    font-size: 1.2rem;
+}
+
+/* Headings Styling */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #333;
+}
+
+/* Additional Container Adjustments */
+.container {
+    padding: 0 15px;
+}
+
+/* --- New Styles --- */
+
+/* Hero Section Specific */
+.hero-section .jumbotron {
+    margin-bottom: 0;
+    position: relative;
+    color: #fff;
+}
+
+.hero-section .overlay {
+    opacity: 0.6;
+}
+
+/* Information Section Adjustments */
+/* Existing styles ... */
+
+/* Information Section Adjustments */
+.info-section h2 {
+    font-weight: bold;
+}
+
+/* Custom rule for smaller image in info-section */
+.info-section img.small-image {
+    max-width: 80%;
+    /* adjust as needed; this limits the image's width */
+    display: block;
+    margin: 0 auto;
+}
+
+.carousel-img {
+    max-width: 80%;
+    max-height: 80%;
+    /* Adjust this value as needed */
+    object-fit: cover;
+    /* Ensures the image covers the allotted area without distortion */
+}
+
+/* You may also adjust the container or padding if needed */

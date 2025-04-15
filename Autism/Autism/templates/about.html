@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}About Autism - Autism Screening{% endblock %}
+
+{% block content %}
+<h1>About Autism Spectrum Disorder (ASD)</h1>
+<p>
+  Autism Spectrum Disorder (ASD) is a diverse and complex neurodevelopmental condition that affects the way individuals perceive, communicate, and interact with the world. It manifests uniquely in each person, resulting in a rich tapestry of abilities and challenges. From remarkable attention to detail and creative problem-solving to difficulties in social communication, every individual on the spectrum is truly one-of-a-kind.
+</p>
+<p>
+  Early detection, compassionate intervention, and consistent support can empower those on the spectrum to harness their unique strengths and lead fulfilling lives. Our goal is to raise awareness and provide accessible tools for preliminary screening—serving as a stepping stone toward a deeper understanding and more effective support system.
+</p>
+<div class="row align-items-center">
+  <div class="col-md-6">
+    <p>
+      <em>"Different, not less."</em> This simple yet powerful quote reminds us that autism is not a deficit but a different way of experiencing the world. Embracing neurodiversity can lead to incredible innovations and richer communities.
+    </p>
+    <p>
+      Here at our Autism Screening Portal, we celebrate individuality and strive to create an inclusive environment where everyone can learn and grow together. Our platform offers reliable information, inspiring success stories, and expert insights that shine a light on the strengths and challenges of autism.
+    </p>
+  </div>
+  <div class="col-md-6 text-center">
+    <img src="{{ url_for('static', filename='images/Autism-Traits.webp') }}" alt="Autism Traits" class="img-fluid" style="max-width: 70%; padding-bottom: 20px">
+  </div>
+</div>
+
+
+<p>
+  Whether you're a parent, educator, or simply curious about autism, we invite you to explore our resources, learn from real-life experiences, and join us in building a more understanding and supportive community. Remember, while our screening tool provides preliminary insights, a professional diagnosis is essential for a comprehensive understanding and effective intervention.
+</p>
+<p>
+  Join us on this journey to celebrate the unique perspectives of those on the spectrum and to foster a world where differences are truly embraced.
+</p>
+
+<!-- Bootstrap Carousel for visual appeal -->
+<div id="aboutCarousel" class="carousel slide mb-4 mx-auto" data-ride="carousel" style="max-width: 50%; padding: 0 20px; overflow: visible;">
+  <ol class="carousel-indicators">
+    <li data-target="#aboutCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#aboutCarousel" data-slide-to="1"></li>
+    <li data-target="#aboutCarousel" data-slide-to="2"></li>
+    <li data-target="#aboutCarousel" data-slide-to="3"></li>
+  </ol>
+  <div class="carousel-inner text-center" style="overflow: visible;">
+    <div class="carousel-item active" style="overflow: visible;">
+      <img src="{{ url_for('static', filename='images/carousel1.png') }}" class="d-block mx-auto w-100 carousel-img" alt="Early Intervention" style="max-width: 100%; height: auto;">
+      <div class="carousel-caption-outside text-center mt-2" style="background: rgba(0, 0, 0, 0.6); padding: 10px; border-radius: 8px; color: white;">
+        <h5 style="font-size: 1rem; font-weight: bold; color:white;">Early Intervention</h5>
+        <p style="font-size: 0.9rem;">Identifying early signs can lead to timely support and better outcomes.</p>
+      </div>
+    </div>
+    <div class="carousel-item" style="overflow: visible;">
+      <img src="{{ url_for('static', filename='images/carousel2.jpg') }}" class="d-block mx-auto w-100 carousel-img" alt="Understanding Autism" style="max-width: 100%; height: auto;">
+      <div class="carousel-caption-outside text-center mt-2" style="background: rgba(0, 0, 0, 0.6); padding: 10px; border-radius: 8px; color: white;">
+        <h5 style="font-size: 1rem; font-weight: bold; color:white;">Understanding Autism</h5>
+        <p style="font-size: 0.9rem;">Learn about the diverse spectrum of autism and the unique qualities of each individual.</p>
+      </div>
+    </div>
+    <div class="carousel-item" style="overflow: visible;">
+      <img src="{{ url_for('static', filename='images/carousel3.jpg') }}" class="d-block mx-auto w-100 carousel-img" alt="Understanding Autism" style="max-width: 100%; height: auto;">
+      <div class="carousel-caption-outside text-center mt-2" style="background: rgba(0, 0, 0, 0.6); padding: 10px; border-radius: 8px; color: white;">
+        <h5 style="font-size: 1rem; font-weight: bold; color:white;">Understanding Autism</h5>
+        <p style="font-size: 0.9rem;">Learn about the diverse spectrum of autism and the unique qualities of each individual.</p>
+      </div>
+    </div>
+    <div class="carousel-item" style="overflow: visible;">
+      <img src="{{ url_for('static', filename='images/carousel4.jpg') }}" class="d-block mx-auto w-100 carousel-img" alt="Community Support" style="max-width: 100%; height: auto;">
+      <div class="carousel-caption-outside text-center mt-2" style="background: rgba(0, 0, 0, 0.6); padding: 10px; border-radius: 8px; color: white;">
+        <h5 style="font-size: 1rem; font-weight: bold; color:white;">Community & Support</h5>
+        <p style="font-size: 0.9rem;">Discover resources and communities dedicated to autism awareness and support.</p>
+      </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#aboutCarousel" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#aboutCarousel" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+<div class="mt-4">
+  <h2>More About Autism</h2>
+  <ul>
+    <li>Autism influences how individuals communicate, socialize, and perceive the world.</li>
+    <li>It is a lifelong condition that spans a wide spectrum of abilities and challenges.</li>
+    <li>Early support and personalized intervention can unlock tremendous potential.</li>
+    <li>Every individual on the spectrum is unique, bringing their own strengths to the community.</li>
+    <li>Embracing neurodiversity enriches our society and fosters innovation.</li>
+  </ul>
+  <p>We are dedicated to providing reliable information and innovative tools to empower families, educators, and individuals. Our aim is to create a nurturing environment where differences are celebrated and every person is given the opportunity to thrive.</p>
+  <blockquote class="blockquote">
+    <p class="mb-0">"When you see the beauty in diversity, you unlock a world of endless possibilities."</p>
+    <footer class="blockquote-footer">Unknown</footer>
+  </blockquote>
+  <p>Join us in embracing the unique journey of autism and building a more inclusive and compassionate community for all.</p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Screening - Autism Prediction{% endblock %}
+
+{% block content %}
+<h1>Autism Screening Prediction</h1>
+<p>Click the start button below to begin our voice-enabled screening. Answer the questions by clicking the options on-screen.</p>
+
+<div class="mt-4">
+  <h2>How It Works</h2>
+  <p>
+    Our interactive screening tool uses a series of questions related to behavior, communication, and social interaction. As each question is spoken aloud, select your answer by clicking the appropriate button.
+  </p>
+  <ul>
+    <li><strong>Step 1:</strong> Click the "Start Screening" button.</li>
+    <li><strong>Step 2:</strong> Listen carefully as each question is asked aloud.</li>
+    <li><strong>Step 3:</strong> Click the correct option.</li>
+    <li><strong>Step 4:</strong> Receive a preliminary prediction about autism spectrum traits.</li>
+  </ul>
+  <p>
+    Please note that this screening is only a preliminary tool and is not a substitute for a professional diagnosis. For a comprehensive evaluation, consult a healthcare professional.
+  </p>
+</div>
+
+<button id="start-btn" class="btn btn-primary">Start Screening</button>
+
+<div id="question-container" class="mt-4 text-center" style="display:none;">
+  <h3 id="question-text"></h3>
+  <div id="answer-options"></div>
+</div>
+
+<form id="screening-form" method="post" style="display:none;"></form>
+
+<div id="result" class="mt-4"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const questions = [
+    { name: "A1", text: "Does your child have difficulties with maintaining eye contact?", type: "yesno" },
+    { name: "A2", text: "Does your child show limited interest in playing with other children?", type: "yesno" },
+    { name: "A3", text: "Does your child have difficulty understanding nonverbal cues such as facial expressions?", type: "yesno" },
+    { name: "A4", text: "Does your child struggle with changes in routine or unexpected events?", type: "yesno" },
+    { name: "A5", text: "Does your child exhibit repetitive behaviors or restricted interests?", type: "yesno" },
+    { name: "A6", text: "Does your child have delays in speech or language development?", type: "yesno" },
+    { name: "A7", text: "Does your child have challenges in understanding or expressing emotions?", type: "yesno" },
+    { name: "A8", text: "Does your child show unusual sensory responses, like overreaction to sounds?", type: "yesno" },
+    { name: "A9", text: "Does your child find it difficult to initiate social interactions?", type: "yesno" },
+    { name: "A10", text: "Does your child have difficulty forming relationships with peers?", type: "yesno" },
+    { name: "Age", text: "Please enter the age of your child.", type: "number" },
+    { name: "Sex", text: "Please select the sex of your child.", type: "choice", options: ["Male", "Female"] },
+    { name: "Jaundice", text: "Has your child experienced jaundice?", type: "choice", options: ["Yes", "No"] },
+    { name: "Family_ASD", text: "Is there a family history of Autism Spectrum Disorder?", type: "choice", options: ["Yes", "No"] }
+  ];
+
+  let currentQuestionIndex = 0;
+  const form = document.getElementById('screening-form');
+  const questionText = document.getElementById("question-text");
+  const answerOptions = document.getElementById("answer-options");
+
+  questions.forEach(q => {
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = q.name;
+    input.id = q.name;
+    form.appendChild(input);
+  });
+
+  const synth = window.speechSynthesis;
+  function speak(text, callback) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.onend = callback;
+    synth.speak(utterance);
+  }
+
+  function askQuestion() {
+    if (currentQuestionIndex < questions.length) {
+      const q = questions[currentQuestionIndex];
+      questionText.innerText = q.text;
+      answerOptions.innerHTML = "";
+  
+      speak(q.text, () => {});
+  
+      if (q.type === "yesno") {
+        createButton("Yes", "1");
+        createButton("No", "0");
+      } else if (q.type === "choice") {
+        if (q.name === "Sex") {
+          createButton("Male", "m"); // Fix for Sex
+          createButton("Female", "f");
+        } else {
+          q.options.forEach(option => createButton(option, option.toLowerCase()));
+        }
+      } else if (q.type === "number") {
+        const inputField = document.createElement("input");
+        inputField.type = "number";
+        inputField.className = "form-control";
+        inputField.id = "age-input";
+        inputField.placeholder = "Enter age";
+        
+        const submitBtn = document.createElement("button");
+        submitBtn.className = "btn btn-primary mt-2";
+        submitBtn.innerText = "Submit";
+        submitBtn.onclick = () => {
+          const ageValue = document.getElementById("age-input").value;
+          if (ageValue) {
+            document.getElementById(q.name).value = ageValue;
+            currentQuestionIndex++;
+            askQuestion();
+          }
+        };
+        
+        answerOptions.appendChild(inputField);
+        answerOptions.appendChild(submitBtn);
+      }
+    } else {
+      submitForm();
+    }
+  }
+  
+  function createButton(text, value) {
+    const button = document.createElement("button");
+    button.className = "btn btn-primary m-2";
+    button.innerText = text;
+    button.onclick = () => {
+      document.getElementById(questions[currentQuestionIndex].name).value = value;
+      currentQuestionIndex++;
+      askQuestion();
+    };
+    answerOptions.appendChild(button);
+  }
+
+  function submitForm() {
+    const formData = new FormData(form);
+    let missingFields = [];
+  
+    // Check for missing inputs
+    questions.forEach(q => {
+      const value = formData.get(q.name);
+      if (!value) {
+        missingFields.push(q.text);
+      }
+    });
+  
+    if (missingFields.length > 0) {
+      alert("Please answer all questions before submitting.");
+      return;
+    }
+  
+    // Send data if all fields are filled
+    fetch("/prediction", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("result").innerHTML = "<h4>Prediction:</h4><p>" + data + "</p>";
+      speak("The screening is complete. " + data, () => {});
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+  }  
+
+  document.getElementById("start-btn").addEventListener("click", function() {
+    this.style.display = 'none';
+    document.getElementById("question-container").style.display = "block";
+    askQuestion();
+  });
+</script>
+{% endblock %}
